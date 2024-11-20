@@ -3,21 +3,25 @@ import { Schema, Document, model, ObjectId } from 'mongoose';
 interface IUser extends Document {
   first: string;
   last: string;
-  age: number;
-  videos: ObjectId[];
-  fullName: string;
- }
+  throughts: ObjectId[];
+  friends: ObjectId[];
+}
 
 // Schema to create User model
 const userSchema = new Schema<IUser>(
   {
-    first: String,
-    last: String,
-    age: Number,
-    videos: [
+    username: String,
+    email: String,
+    thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'video',
+        ref: 'thought',
+      },
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'friend',
       },
     ],
   },

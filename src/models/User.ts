@@ -35,19 +35,14 @@ const userSchema = new Schema<IUser>(
   }
 );
 
-// Create a virtual property `fullName` that gets and sets the user's full name
+// Create a virtual property `friendCount` that gets friend count
 userSchema
-  .virtual('fullName')
+  .virtual('friendCount')
   // Getter
   .get(function (this: any) {
-    return `${this.first} ${this.last}`;
-  })
-  // Setter to set the first and last name
-  .set(function (this: any, v: any) {
-    const first = v.split(' ')[0];
-    const last = v.split(' ')[1];
-    this.set({ first, last });
+    return `${this.friends.length}`;
   });
+
 
 // Initialize our User model
 const User = model('user', userSchema);

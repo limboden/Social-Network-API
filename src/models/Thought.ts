@@ -1,7 +1,7 @@
 import { Schema, Document, ObjectId, Types } from 'mongoose';
 
 interface IResponse extends Document {
-  reactionId: ObjectId;
+  thoughtText: String;
   responseBody: string;
   username: string;
   createdAt: Date;

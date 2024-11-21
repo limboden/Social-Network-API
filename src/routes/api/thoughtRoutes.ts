@@ -8,13 +8,13 @@ router.route('/').get(getThoughts).post(createThought);
 router.route('/:thoughtId').get(getSingleThought);
 
 router
-  .route('/:ThoughtId')
+  .route('/:thoughtId')
   .get(getSingleThought)
   .put(updateThought)
   .delete(deleteThought);
 
-router.route('/:videoId/responses').post(addThoughtReaction);
+router.route('/:thoughtId/reaction').post(addThoughtReaction);
 
-router.route('/:videoId/responses/:responseId').delete(removeThoughtReaction);
+router.route('/:thoughtId/reaction/:reactionId').delete(removeThoughtReaction);
 
 export default router;

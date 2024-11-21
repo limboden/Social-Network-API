@@ -1,35 +1,32 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, ObjectId, Types } from 'mongoose';
 import Response from './Thought.js';
 
-interface IVideo {
-  published: boolean;
+interface IReaction {
+  reactionId: ObjectId;
+  reactionBody: string;
+  username: string;
   createdAt: Date;
-  advertiserFriendly: boolean;
-  description: string;
-  responses: Response[];
 }
 
 // Schema to create Post model
-const videoSchema = new Schema<IVideo>(
+const reactionSchema = new Schema<IVideo>(
   {
-    published: {
-      type: Boolean,
-      default: false,
+    reactionId: {
+      default: () => new Types.ObjectId(),
     },
-    createdAt: {
+    reactionBody: {
       type: Date,
       default: Date.now,
     },
-    advertiserFriendly: {
+    username: {
       type: Boolean,
       default: true,
     },
-    description: {
+    createdAt: {
       type: String,
       minLength: 8,
       maxLength: 500,
     },
-    responses: [Response],
   },
   {
     toJSON: {
@@ -40,7 +37,7 @@ const videoSchema = new Schema<IVideo>(
 );
 
 // Create a virtual property `responses` that gets the amount of response per video
-videoSchema
+reactionSchema
   .virtual('getResponses')
   // Getter
   .get(function () {
@@ -48,6 +45,6 @@ videoSchema
   });
 
 // Initialize our Video model
-const Video = model('video', videoSchema);
+const Video = model('video', reactionSchema);
 
 export default Video;

@@ -1,5 +1,4 @@
 import { Schema, model, ObjectId, Types } from 'mongoose';
-import Response from './Thought.js';
 
 interface IReaction {
   reactionId: ObjectId;
@@ -9,42 +8,50 @@ interface IReaction {
 }
 
 // Schema to create Post model
-const reactionSchema = new Schema<IVideo>(
+const reactionSchema = new Schema<IReaction>(
   {
     reactionId: {
       default: () => new Types.ObjectId(),
     },
     reactionBody: {
-      type: Date,
+      type: String,
       default: Date.now,
+      required: true,
+      maxlength: 280,
+
     },
     username: {
-      type: Boolean,
-      default: true,
+      type: String,
+      required: true,
     },
     createdAt: {
-      type: String,
-      minLength: 8,
-      maxLength: 500,
+      type: Date,
+      default: Date.now,
+      get: function (value: Date | undefined) {
+        return value ? value.toLocaleString() : ''; // this might be wrong. 
+      }
     },
   },
   {
     toJSON: {
+      getters: true,
       virtuals: true,
+    },
+    toObject: {
+      getters: true,
     },
     id: false,
   }
 );
 
-// Create a virtual property `responses` that gets the amount of response per video
+
 reactionSchema
-  .virtual('getResponses')
-  // Getter
+  .virtual('getReactions')
   .get(function () {
     return this.responses.length;
   });
 
 // Initialize our Video model
-const Video = model('video', reactionSchema);
+const Reaction = model('reaction', reactionSchema);
 
-export default Video;
+export default Reaction;

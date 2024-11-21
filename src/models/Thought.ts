@@ -1,13 +1,13 @@
-import { Schema, Document, ObjectId, Types } from 'mongoose';
+import { Schema, Document, ObjectId } from 'mongoose';
 
-interface IResponse extends Document {
+interface IThought extends Document {
   thoughtText: string; // must be between 1 and 280 chars
   createdAt: Date;
   username: string;
   reactions: ObjectId[];
 }
 
-const throughtSchema = new Schema<IResponse>(
+const thoughtSchema = new Schema<IThought>(
   {
     thoughtText: {
       type: String,
@@ -45,10 +45,10 @@ const throughtSchema = new Schema<IResponse>(
 );
 
 
-throughtSchema
+thoughtSchema
   .virtual('reactionCount')
   .get(function (this: any) {
     return `${this.reactions.length}`;
   });
 
-export default throughtSchema;
+export default thoughtSchema;

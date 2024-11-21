@@ -44,7 +44,6 @@ const thoughtSchema = new Schema<IThought>(
   }
 );
 
-
 thoughtSchema
   .virtual('reactionCount')
   .get(function (this: any) {

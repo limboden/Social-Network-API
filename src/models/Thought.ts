@@ -18,6 +18,10 @@ const throughtSchema = new Schema<IResponse>(
     createdAt: {
       type: Date,
       default: Date.now,
+      get: function (value: Date | undefined) {
+        return value ? value.toLocaleString() : ''; // this might be wrong. 
+      }
+
     },
     username: {
       type: String,
@@ -29,6 +33,14 @@ const throughtSchema = new Schema<IResponse>(
         ref: 'reaction',
       },
     ],
+  },
+  {
+    // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
+    // Here we are indicating that we want virtuals to be included with our response, overriding the default behavior
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
   }
 );
 

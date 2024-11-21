@@ -34,3 +34,24 @@ export const createUser = async (req: Request, res: Response) => {
     res.status(500).json(err);
   }
 }
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const dbUserData = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+    res.json(dbUserData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const dbUserData = await User.findByIdAndDelete(req.params.id);
+    res.json(dbUserData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}

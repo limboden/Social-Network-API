@@ -1,4 +1,5 @@
 import { Schema, Document, ObjectId } from 'mongoose';
+import Reaction from './Reaction.js';
 
 interface IThought extends Document {
   thoughtText: string; // must be between 1 and 280 chars
@@ -21,18 +22,12 @@ const thoughtSchema = new Schema<IThought>(
       get: function (value: Date | undefined) {
         return value ? value.toLocaleString() : ''; // this might be wrong. 
       }
-
     },
     username: {
       type: String,
       required: true,
     },
-    reactions: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'reaction',
-      },
-    ],
+    reactions: [Reaction],
   },
   {
     // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.

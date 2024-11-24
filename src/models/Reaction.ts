@@ -5,6 +5,7 @@ interface IReaction extends Document {
   reactionBody: string;
   username: string;
   createdAt: Date;
+  getCreatedAt(): Date;
 }
 
 // Schema to create Post model
@@ -35,5 +36,9 @@ const reactionSchema = new Schema<IReaction>(
     id: false,
   }
 );
+
+reactionSchema.methods.getCreatedAt = function (): Date {
+  return this.createdAt;
+}
 
 export default reactionSchema;

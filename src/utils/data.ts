@@ -58,14 +58,14 @@ const names = [
 const descriptionsBodies = [
   'How to disagree with someone',
   'iPhone review',
-  'how-to video',
-  'video essay on the history of video games',
+  'how-to thought',
+  'thought essay on the history of thought games',
   'How to make money on the App Store',
   'Learn NextJS in five minutes (Not clickbate)',
   'Movie trailer',
   'Hello world',
   'Another possible solution to the algorithm',
-  'Apology video',
+  'Apology thought',
   'Submission for startup pitch',
 ];
 
@@ -74,7 +74,7 @@ const possibleResponses = [
   'I tried your algorithm, here were the results',
   'This was awesome',
   'Thank you for the great content',
-  'Please check out my video response',
+  'Please check out my thought response',
   'Like and subscribe to my channel please',
   'Reply: The side effects of in app purchases on digital marketplaces',
 ];
@@ -86,22 +86,22 @@ const getRandomArrItem = (arr: any[]) => arr[Math.floor(Math.random() * arr.leng
 const getRandomName = () =>
   `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
 
-// Function to generate random videos that we can add to the database. Includes video responses.
-const getRandomVideos = (int: number) => {
+// Function to generate random thoughts that we can add to the database. Includes thought responses.
+const getRandomthoughts = (int: number) => {
   let results = [];
   for (let i = 0; i < int; i++) {
     results.push({
       published: Math.random() < 0.5,
       description: getRandomArrItem(descriptionsBodies),
       advertiserFriendly: Math.random() < 0.5,
-      responses: [...getVideoResponses(3)],
+      responses: [...getThoughtResponses(3)],
     });
   }
   return results;
 };
 
-// Create the responses that will be added to each video
-const getVideoResponses = (int: number) => {
+// Create the responses that will be added to each thought
+const getThoughtResponses = (int: number) => {
   if (int === 1) {
     return getRandomArrItem(possibleResponses);
   }
@@ -116,4 +116,4 @@ const getVideoResponses = (int: number) => {
 };
 
 // Export the functions for use in seed.js
-export { getRandomName, getRandomVideos, getVideoResponses };
+export { getRandomName, getRandomthoughts, getThoughtResponses };

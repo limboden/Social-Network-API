@@ -1,9 +1,10 @@
 import { Schema, Document, model, ObjectId } from 'mongoose';
+import { thoughtSchema } from './Thought.js';
 
 interface IUser extends Document {
   username: string;
   email: string;
-  throughts: ObjectId[];
+  thoughts: ObjectId[];
   friends: ObjectId[];
 }
 
@@ -22,15 +23,10 @@ const userSchema = new Schema<IUser>(
       unique: true,
       match: [/.+@.+\..+/, 'Please enter a valid email address.']
     },
-    thoughts: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'thought',
-      },
-    ],
+    thoughts: [thoughtSchema],
     friends: [
       {
-        type: Schema.Types.ObjectId,
+        type: this,
         ref: 'friend',
       },
     ],

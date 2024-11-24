@@ -50,4 +50,4 @@ thoughtSchema
 
 
 const Thought = model('user', thoughtSchema);
-export default Thought;
+export { Thought, thoughtSchema }
